@@ -25,6 +25,15 @@ export function LayerRow({
   const isExpanded = expandedIds.has(node.id);
   const isSelected = selectedId === node.id;
   const indentPx = 12 + depth * INDENT_PX;
+  const isBoldByDefault = node.iconType === "frame" || node.iconType === "component";
+  const fontWeight = isSelected || isBoldByDefault ? 700 : "var(--sidebar-layer-font-weight-default)";
+  const labelColor = isSelected
+    ? "var(--text-primary)"
+    : node.iconType === "component"
+      ? "var(--layer-component)"
+      : isBoldByDefault
+        ? "var(--text-primary)"
+        : "var(--text-muted)";
 
   const row = (
     <div
@@ -71,8 +80,8 @@ export function LayerRow({
         style={{
           fontSize: "var(--sidebar-font-size)",
           paddingRight: "var(--sidebar-padding-x)",
-          color: isSelected ? "var(--text-primary)" : "var(--text-muted)",
-          fontWeight: isSelected ? 600 : 400,
+          color: labelColor,
+          fontWeight,
         }}
       >
         {node.label}

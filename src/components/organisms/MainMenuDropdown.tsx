@@ -15,13 +15,16 @@ type MenuItem =
 
 const ITEMS: MenuItem[] = [
   { type: "link", label: "Back to files" },
+  { type: "separator" },
   { type: "action", label: "Actions...", shortcut: "⌘K", icon: "search" },
+  { type: "separator" },
   { type: "submenu", label: "File" },
   { type: "submenu", label: "Edit" },
   { type: "submenu", label: "View" },
   { type: "submenu", label: "Object" },
   { type: "separator" },
   { type: "submenu", label: "Preferences" },
+  { type: "separator" },
   { type: "link", label: "Open in desktop app" },
   { type: "submenu", label: "Help and account" },
 ];
@@ -56,7 +59,14 @@ export function MainMenuDropdown({ open, onClose, anchorRef }: { open: boolean; 
     >
       {ITEMS.map((item, i) => {
         if (item.type === "separator") {
-          return <div key={`sep-${i}`} className="my-1 h-px w-full shrink-0" style={{ backgroundColor: "rgba(255,255,255,0.12)" }} role="separator" />;
+          return (
+          <div
+            key={`sep-${i}`}
+            role="separator"
+            className="my-1 h-px w-full shrink-0 self-stretch"
+            style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
+          />
+        );
         }
         const label = item.label;
         const hasSubmenu = item.type === "submenu";

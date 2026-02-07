@@ -22,13 +22,14 @@ export function SidebarHeader({ onCollapse }: { onCollapse?: () => void }) {
             ref={menuButtonRef}
             type="button"
             className="flex items-center gap-0.5 rounded transition-colors hover:bg-[var(--icon-button-hover)] active:bg-[var(--icon-button-active)]"
+            style={menuOpen ? { backgroundColor: "var(--icon-button-menu-open)" } : undefined}
             aria-label="Main menu"
             aria-haspopup="menu"
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen((o) => !o)}
           >
-            <span className="flex h-8 w-8 items-center justify-center" style={{ color: "var(--text-primary)" }}><FigmaLogoIcon /></span>
-            <span className="flex items-center justify-center opacity-80" aria-hidden><ChevronDownIcon /></span>
+            <span className="flex h-8 w-8 items-center justify-center" style={{ color: menuOpen ? "var(--icon-menu-open-color)" : "var(--text-primary)" }}><FigmaLogoIcon /></span>
+            <span className="flex items-center justify-center opacity-80" style={menuOpen ? { color: "var(--icon-menu-open-color)" } : undefined} aria-hidden><ChevronDownIcon /></span>
           </button>
           <MainMenuDropdown open={menuOpen} onClose={() => setMenuOpen(false)} anchorRef={menuButtonRef} />
         </div>
@@ -47,13 +48,13 @@ export function SidebarHeader({ onCollapse }: { onCollapse?: () => void }) {
           ref={filenameButtonRef}
           type="button"
           className="flex min-w-0 flex-1 items-center gap-0.5 rounded px-1 py-1.5 text-left transition-colors hover:bg-[var(--icon-button-hover)] active:bg-[var(--icon-button-active)]"
-          style={{ color: "var(--text-primary)", fontSize: "var(--sidebar-font-size)" }}
+          style={{ color: "var(--text-primary)", fontSize: "var(--sidebar-header-filename-size)" }}
           aria-label="Antital, file name"
           aria-haspopup="menu"
           aria-expanded={fileMenuOpen}
           onClick={() => setFileMenuOpen((o) => !o)}
         >
-          <span className="truncate font-medium">Antital</span>
+          <span className="truncate" style={{ fontWeight: 700 }}>Antital</span>
           <span className="ml-0.5 shrink-0 opacity-80" aria-hidden><ChevronDownIcon /></span>
         </button>
         <FileMenuDropdown open={fileMenuOpen} onClose={() => setFileMenuOpen(false)} anchorRef={filenameButtonRef} />

@@ -14,3 +14,10 @@
     color: var(--text-primary);
   }
 }
+
+@layer components {
+  .search-bar-focus-ring:focus-within {
+    border-color: var(--icon-menu-open-color);
+    box-shadow: 0 0 0 2px var(--icon-menu-open-color);
+  }
+}

@@ -1,9 +1,11 @@
 import type { LayerIconType } from "@/data/layers";
 
-const color = "var(--fpl-icon-color, var(--color-icon, currentColor))";
+const defaultColor = "var(--fpl-icon-color, var(--color-icon, currentColor))";
+const componentColor = "var(--layer-component, #a78bfa)";
 
 /** Frame / Component / Group / Image / Text icons (Figma layer types). */
 export function LayerIcon({ type }: { type: LayerIconType }) {
+  const color = type === "component" ? componentColor : defaultColor;
   switch (type) {
     case "frame":
       return (
