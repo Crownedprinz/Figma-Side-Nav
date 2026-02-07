@@ -40,8 +40,9 @@ function PageRow({
         >
           <div className="flex min-w-0 flex-1 items-center">
             <span
-              className="min-w-0 truncate text-sm"
+              className="min-w-0 truncate"
               style={{
+                fontSize: "var(--sidebar-font-size)",
                 color: isDivider ? "var(--text-muted)" : isSelected ? "var(--text-primary)" : "var(--text-muted)",
                 fontWeight: isSelected ? 500 : 400,
               }}
@@ -59,8 +60,9 @@ function PageRow({
 function GroupLabelRow({ label }: { label: string }) {
   return (
     <div
-      className="px-2 py-1 text-xs font-medium"
+      className="px-2 py-1 font-medium"
       style={{
+        fontSize: "var(--sidebar-font-size)",
         color: "var(--text-secondary)",
         paddingLeft: "var(--sidebar-padding-x)",
         paddingRight: "var(--sidebar-padding-x)",

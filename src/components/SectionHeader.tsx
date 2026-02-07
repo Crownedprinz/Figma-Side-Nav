@@ -43,8 +43,8 @@ export function SectionHeader({
               <ChevronIcon expanded={chevronExpanded} />
             </span>
             <span
-              className="min-w-0 flex-1 truncate text-left text-xs font-medium"
-              style={{ color: "var(--text-muted)" }}
+              className="min-w-0 flex-1 truncate text-left font-medium"
+              style={{ color: "var(--text-muted)", fontSize: "var(--sidebar-font-size)" }}
             >
               {title}
             </span>
@@ -59,8 +59,8 @@ export function SectionHeader({
               <ChevronIcon expanded={chevronExpanded} />
             </span>
             <span
-              className="min-w-0 flex-1 truncate text-xs font-medium"
-              style={{ color: "var(--text-muted)" }}
+              className="min-w-0 flex-1 truncate font-medium"
+              style={{ color: "var(--text-muted)", fontSize: "var(--sidebar-font-size)" }}
             >
               {title}
             </span>

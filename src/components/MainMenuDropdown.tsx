@@ -98,8 +98,9 @@ export function MainMenuDropdown({
             key={`${label}-${i}`}
             type="button"
             role="menuitem"
-            className="flex w-full items-center gap-2 px-3 py-2 text-left text-sm transition-colors first:mt-0"
+            className="flex w-full items-center gap-2 px-3 py-2 text-left transition-colors first:mt-0"
             style={{
+              fontSize: "var(--sidebar-font-size)",
               color: MENU_TEXT,
               backgroundColor: "transparent",
             }}
@@ -122,8 +123,8 @@ export function MainMenuDropdown({
             <span className="min-w-0 flex-1">{label}</span>
             {hasShortcut && (
               <span
-                className="shrink-0 text-xs"
-                style={{ color: MENU_MUTED }}
+                className="shrink-0"
+                style={{ color: MENU_MUTED, fontSize: "var(--sidebar-font-size)" }}
               >
                 {item.shortcut}
               </span>

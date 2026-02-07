@@ -54,7 +54,7 @@ export function CollapsedSidebarBar({ onExpand }: { onExpand: () => void }) {
         aria-label="Expand UI for file named Antital"
         onClick={onExpand}
       >
-        <span className="min-w-0 flex-1 truncate text-left text-sm font-medium">
+        <span className="min-w-0 flex-1 truncate text-left font-medium" style={{ fontSize: "var(--sidebar-font-size)" }}>
           Antital
         </span>
         <span className="flex h-9 w-9 shrink-0 items-center justify-center" aria-hidden>

@@ -7,7 +7,7 @@ import { PageList } from "./PageList";
 import { SidebarHeader } from "./SidebarHeader";
 
 const SIDEBAR_WIDTH_MIN = 180;
-const SIDEBAR_WIDTH_MAX = 420;
+const SIDEBAR_WIDTH_MAX = 640;
 const SIDEBAR_WIDTH_DEFAULT = 240;
 
 /**
@@ -68,22 +68,25 @@ export function SidebarShell({
 
   return (
     <aside
-      className="relative flex h-full flex-col border-r border-[var(--divider)]"
+      className="relative flex min-h-screen flex-col border-r border-[var(--divider)]"
       style={{
         width: sidebarWidth,
         minWidth: sidebarWidth,
+        height: "100%",
         backgroundColor: "var(--sidebar-bg)",
       }}
       aria-label="Sidebar"
     >
       <SidebarHeader onCollapse={() => setCollapsed(true)} />
-      <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
+      <div className="flex min-h-0 shrink-0 flex-col overflow-hidden" style={{ maxHeight: "40vh" }}>
         <PageList
           pagesExpanded={pagesExpanded}
           onPagesExpandedChange={onPagesExpandedChange}
         />
       </div>
-      <LayersSection />
+      <div className="flex min-h-0 flex-1 flex-col">
+        <LayersSection />
+      </div>
       {/* Resize handle: drag right edge to expand/retract */}
       <div
         data-sidebar-resize-handle

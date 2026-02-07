@@ -59,8 +59,8 @@ export function FindSearchBar({ onClose }: { onClose: () => void }) {
         <input
           type="text"
           placeholder="Find…"
-          className="min-w-0 flex-1 bg-transparent text-sm outline-none placeholder:opacity-70"
-          style={{ color: "var(--text-primary)" }}
+          className="min-w-0 flex-1 bg-transparent outline-none placeholder:opacity-70"
+          style={{ color: "var(--text-primary)", fontSize: "var(--sidebar-font-size-input)" }}
           aria-label="Find"
           autoFocus
         />
@@ -187,8 +187,8 @@ const SearchFilterMenu = React.forwardRef(function SearchFilterMenu(
           key={f.id}
           type="button"
           role="menuitem"
-          className="flex w-full items-center gap-2 px-3 py-2 text-left text-sm transition-colors"
-          style={{ backgroundColor: "transparent" }}
+          className="flex w-full items-center gap-2 px-3 py-2 text-left transition-colors"
+          style={{ backgroundColor: "transparent", fontSize: "var(--sidebar-font-size)" }}
           onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = MENU_HOVER)}
           onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "transparent")}
           onClick={() => { setSelectedFilter(f.id); }}
@@ -204,8 +204,8 @@ const SearchFilterMenu = React.forwardRef(function SearchFilterMenu(
         type="button"
         role="menuitemcheckbox"
         aria-checked={matchCase}
-        className="flex w-full items-center gap-2 px-3 py-2 text-left text-sm transition-colors"
-        style={{ backgroundColor: "transparent" }}
+        className="flex w-full items-center gap-2 px-3 py-2 text-left transition-colors"
+        style={{ backgroundColor: "transparent", fontSize: "var(--sidebar-font-size)" }}
         onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = MENU_HOVER)}
         onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "transparent")}
         onClick={() => { setMatchCase((c) => !c); }}
@@ -217,8 +217,8 @@ const SearchFilterMenu = React.forwardRef(function SearchFilterMenu(
         type="button"
         role="menuitemcheckbox"
         aria-checked={wholeWords}
-        className="flex w-full items-center gap-2 px-3 py-2 text-left text-sm transition-colors"
-        style={{ backgroundColor: "transparent" }}
+        className="flex w-full items-center gap-2 px-3 py-2 text-left transition-colors"
+        style={{ backgroundColor: "transparent", fontSize: "var(--sidebar-font-size)" }}
         onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = MENU_HOVER)}
         onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "transparent")}
         onClick={() => { setWholeWords((w) => !w); }}
@@ -241,23 +241,23 @@ function CheckboxIcon({ checked = false }: { checked?: boolean }) {
   );
 }
 function TextIcon() {
-  return <span className="text-sm font-bold">T</span>;
+  return <span className="font-bold" style={{ fontSize: "var(--sidebar-font-size)" }}>T</span>;
 }
 function HashIcon() {
-  return <span className="text-sm">#</span>;
+  return <span style={{ fontSize: "var(--sidebar-font-size)" }}>#</span>;
 }
 function ComponentIcon() {
-  return <span className="text-sm">◇</span>;
+  return <span style={{ fontSize: "var(--sidebar-font-size)" }}>◇</span>;
 }
 function InstanceIcon() {
-  return <span className="text-sm opacity-70">◇</span>;
+  return <span className="opacity-70" style={{ fontSize: "var(--sidebar-font-size)" }}>◇</span>;
 }
 function ImageIcon() {
-  return <span className="text-sm">▢</span>;
+  return <span style={{ fontSize: "var(--sidebar-font-size)" }}>▢</span>;
 }
 function ShapeIcon() {
-  return <span className="text-sm">△</span>;
+  return <span style={{ fontSize: "var(--sidebar-font-size)" }}>△</span>;
 }
 function OtherIcon() {
-  return <span className="text-sm">⋯</span>;
+  return <span style={{ fontSize: "var(--sidebar-font-size)" }}>⋯</span>;
 }

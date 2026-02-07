@@ -65,8 +65,8 @@ export function SidebarHeader({ onCollapse }: { onCollapse?: () => void }) {
         <button
           ref={filenameButtonRef}
           type="button"
-          className="flex min-w-0 flex-1 items-center gap-0.5 rounded px-1 py-1.5 text-left text-sm transition-colors hover:bg-[var(--icon-button-hover)] active:bg-[var(--icon-button-active)]"
-          style={{ color: "var(--text-primary)" }}
+          className="flex min-w-0 flex-1 items-center gap-0.5 rounded px-1 py-1.5 text-left transition-colors hover:bg-[var(--icon-button-hover)] active:bg-[var(--icon-button-active)]"
+          style={{ color: "var(--text-primary)", fontSize: "var(--sidebar-font-size)" }}
           aria-label="Antital, file name"
           aria-haspopup="menu"
           aria-expanded={fileMenuOpen}

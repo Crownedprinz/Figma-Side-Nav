@@ -90,8 +90,9 @@ export function FileMenuDropdown({
             key={`${item.label}-${i}`}
             type="button"
             role="menuitem"
-            className="flex w-full items-center justify-between gap-2 px-3 py-2 text-left text-sm transition-colors"
+            className="flex w-full items-center justify-between gap-2 px-3 py-2 text-left transition-colors"
             style={{
+              fontSize: "var(--sidebar-font-size)",
               color: item.muted ? MENU_DISABLED : MENU_TEXT,
               backgroundColor: "transparent",
             }}
@@ -105,7 +106,7 @@ export function FileMenuDropdown({
           >
             <span className="min-w-0 flex-1">{item.label}</span>
             {item.shortcut && (
-              <span className="shrink-0 text-xs" style={{ color: MENU_MUTED }}>
+              <span className="shrink-0" style={{ color: MENU_MUTED, fontSize: "var(--sidebar-font-size)" }}>
                 {item.shortcut}
               </span>
             )}

@@ -39,8 +39,8 @@ export function PagesOverviewCanvas() {
             <div className="h-full rounded bg-white/10" aria-hidden />
           </div>
           <div
-            className="truncate border-t border-white/10 px-2 py-1.5 text-xs"
-            style={{ color: "var(--text-muted)" }}
+            className="truncate border-t border-white/10 px-2 py-1.5"
+            style={{ color: "var(--text-muted)", fontSize: "var(--sidebar-font-size)" }}
           >
             {page.label}
           </div>
