@@ -48,8 +48,8 @@ export function LayersSection() {
           {sectionExpanded ? <ExpandCaretDownIcon /> : <ExpandCaretRightIcon />}
         </span>
         <span
-          className="min-w-0 flex-1 truncate font-medium"
-          style={{ color: "var(--text-muted)", fontSize: "var(--sidebar-font-size)" }}
+          className="min-w-0 flex-1 truncate"
+          style={{ color: "var(--text-primary)", fontSize: "var(--sidebar-font-size)", fontWeight: 700 }}
         >
           Layers
         </span>

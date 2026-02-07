@@ -11,6 +11,11 @@
   /* Figma layers panel uses ~11px for list/section text */
   --sidebar-font-size: 11px;
   --sidebar-font-size-input: 12px;
+  /* Header file name — slightly larger than list text */
+  --sidebar-header-filename-size: 13px;
+  /* Layer row: frame/selected = medium (500), others = regular (400) — matches design */
+  --sidebar-layer-font-weight-emphasis: 500;
+  --sidebar-layer-font-weight-default: 400;
 }
 
 /* Dark theme (default) */
@@ -25,6 +30,11 @@
   --divider: #3d3d3d;
   --icon-button-hover: rgba(255, 255, 255, 0.08);
   --icon-button-active: rgba(255, 255, 255, 0.12);
+  /* Main menu open state — light blue (Figma-style) */
+  --icon-button-menu-open: rgba(135, 175, 255, 0.28);
+  --icon-menu-open-color: #87afff;
+  /* Component layers (e.g. GlobeSimple) — Figma-style purple */
+  --layer-component: #a78bfa;
 }
 
 /* Light theme — follows system preference */
@@ -40,5 +50,8 @@
     --divider: #d4d4d4;
     --icon-button-hover: rgba(0, 0, 0, 0.06);
     --icon-button-active: rgba(0, 0, 0, 0.1);
+    --icon-button-menu-open: rgba(135, 175, 255, 0.25);
+    --icon-menu-open-color: #87afff;
+    --layer-component: #7c3aed;
   }
 }

@@ -38,25 +38,27 @@ export function FindSearchBar({ onClose }: { onClose: () => void }) {
       style={{
         paddingLeft: "var(--sidebar-padding-x)",
         paddingRight: "var(--sidebar-padding-x)",
-        paddingTop: 6,
-        paddingBottom: 6,
-        minHeight: 40,
+        paddingTop: 4,
+        paddingBottom: 4,
+        minHeight: 32,
       }}
     >
-      <div className="flex min-w-0 flex-1 items-center gap-2 rounded-md border px-2 py-1.5 focus-within:border-blue-400 focus-within:ring-1 focus-within:ring-blue-400/30"
+      <div
+        className="search-bar-focus-ring flex min-w-0 flex-1 items-center gap-1.5 rounded border px-2 transition-[border-color,box-shadow]"
         style={{
           borderColor: "var(--divider)",
           backgroundColor: "var(--sidebar-bg)",
+          minHeight: 24,
         }}
       >
-        <span className="flex shrink-0 items-center justify-center" style={{ color: "var(--text-muted)" }}>
-          <SearchIcon />
+        <span className="flex h-4 w-4 shrink-0 items-center justify-center" style={{ color: "var(--text-muted)" }}>
+          <SearchIcon size={16} />
         </span>
         <input
           type="text"
           placeholder="Find…"
           className="min-w-0 flex-1 bg-transparent outline-none placeholder:opacity-70"
-          style={{ color: "var(--text-primary)", fontSize: "var(--sidebar-font-size-input)" }}
+          style={{ color: "var(--text-primary)", fontSize: "var(--sidebar-font-size)", height: 24 }}
           aria-label="Find"
           autoFocus
         />
@@ -65,11 +67,15 @@ export function FindSearchBar({ onClose }: { onClose: () => void }) {
         <button
           ref={settingsButtonRef}
           type="button"
-          className="flex h-8 w-8 shrink-0 items-center justify-center rounded transition-colors hover:bg-[var(--icon-button-hover)]"
+          className="flex h-7 w-7 shrink-0 items-center justify-center rounded transition-colors hover:bg-[var(--icon-button-hover)]"
           aria-label="Settings"
           aria-haspopup="menu"
           aria-expanded={filterMenuOpen}
-          style={{ color: "var(--text-primary)" }}
+          style={
+            filterMenuOpen
+              ? { backgroundColor: "var(--icon-button-menu-open)", color: "var(--icon-menu-open-color)" }
+              : { color: "var(--text-primary)" }
+          }
           onClick={() => setFilterMenuOpen((o) => !o)}
         >
           <SettingsIcon />
@@ -86,7 +92,7 @@ export function FindSearchBar({ onClose }: { onClose: () => void }) {
       </div>
       <button
         type="button"
-        className="flex h-8 w-8 shrink-0 items-center justify-center rounded transition-colors hover:bg-[var(--icon-button-hover)]"
+        className="flex h-7 w-7 shrink-0 items-center justify-center rounded transition-colors hover:bg-[var(--icon-button-hover)]"
         aria-label="Close"
         style={{ color: "var(--text-primary)" }}
         onClick={onClose}
@@ -97,9 +103,9 @@ export function FindSearchBar({ onClose }: { onClose: () => void }) {
   );
 }
 
-function SearchIcon() {
+function SearchIcon({ size = 24 }: { size?: number }) {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden>
       <path fill="currentColor" d="M11.5 6a5.5 5.5 0 0 1 4.226 9.019l2.127 2.127a.5.5 0 1 1-.707.707l-2.127-2.127A5.5 5.5 0 1 1 11.5 6m0 1a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9" />
     </svg>
   );
@@ -136,7 +142,7 @@ const SearchFilterMenu = forwardRef(function SearchFilterMenu(
   }, [anchorRef]);
 
   const filters: { id: string; label: string; icon: ReactNode }[] = [
-    { id: "all", label: "All", icon: <CheckboxIcon checked={false} /> },
+    { id: "all", label: "All", icon: <FilterAllIcon /> },
     { id: "text", label: "Text", icon: <TextIcon /> },
     { id: "frame", label: "Frame / Group", icon: <HashIcon /> },
     { id: "component", label: "Component", icon: <ComponentIcon /> },
@@ -152,7 +158,7 @@ const SearchFilterMenu = forwardRef(function SearchFilterMenu(
       role="menu"
       aria-label="Search filter"
       className="min-w-[200px] rounded-lg py-1 shadow-lg"
-      style={{ position: "fixed", top: position.top, left: position.left, zIndex: 9999, backgroundColor: MENU_BG, color: "#fff" }}
+      style={{ position: "fixed", top: position.top, left: position.left, zIndex: 9999, backgroundColor: MENU_BG, color: "#fff", fontSize: 11, fontWeight: 700 }}
     >
       {filters.map((f) => (
         <button
@@ -160,13 +166,16 @@ const SearchFilterMenu = forwardRef(function SearchFilterMenu(
           type="button"
           role="menuitem"
           className="flex w-full items-center gap-2 px-3 py-2 text-left transition-colors"
-          style={{ backgroundColor: "transparent", fontSize: "var(--sidebar-font-size)" }}
+          style={{ backgroundColor: "transparent" }}
           onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = MENU_HOVER)}
           onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "transparent")}
           onClick={() => setSelectedFilter(f.id)}
         >
-          <span className="flex h-4 w-4 shrink-0 items-center justify-center" style={{ color: "var(--text-primary)" }}>
-            {selectedFilter === f.id ? <CheckboxIcon checked /> : f.icon}
+          <span className="flex h-4 w-4 shrink-0 items-center justify-center [&_svg]:block [&_svg]:shrink-0 [&_svg]:min-h-4 [&_svg]:min-w-4" style={{ color: "#fff" }}>
+            {selectedFilter === f.id ? <CheckboxIcon /> : null}
+          </span>
+          <span className="flex h-4 w-4 shrink-0 items-center justify-center [&_svg]:block [&_svg]:shrink-0 [&_svg]:min-h-4 [&_svg]:min-w-4" style={{ color: "#fff" }}>
+            {f.icon}
           </span>
           <span>{f.label}</span>
         </button>
@@ -202,18 +211,73 @@ const SearchFilterMenu = forwardRef(function SearchFilterMenu(
   );
 });
 
-function CheckboxIcon({ checked = false }: { checked?: boolean }) {
+const filterIconSvgProps = { width: 16, height: 16, fill: "none" as const, "aria-hidden": true, preserveAspectRatio: "xMidYMid meet" as const };
+
+/* Filter menu icons from Figma (element.html) — fill="currentColor" for theme; same size via preserveAspectRatio */
+function FilterAllIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
-      <rect x="2" y="2" width="12" height="12" rx="2" stroke="currentColor" strokeWidth="1.5" fill="none" />
-      {checked && <path d="M4 8.5L6.5 11L12 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />}
+    <svg {...filterIconSvgProps} viewBox="0 0 16 16">
+      <path fill="currentColor" fillRule="evenodd" d="M8.26 2.072c-.16-.098-.36-.098-.521 0l-6 3.667c-.148.091-.239.253-.239.427 0 .174.09.336.24.426L4.041 8 1.739 9.407c-.148.09-.239.253-.239.427 0 .174.09.335.24.426l5.999 3.668c.16.097.361.097.522 0l6-3.668c.148-.09.239-.252.239-.426 0-.174-.091-.336-.24-.427L11.958 8l2.302-1.408c.149-.09.24-.252.24-.426 0-.174-.091-.336-.24-.427zM11 8.586 8.26 10.26c-.16.098-.36.098-.521 0L5 8.586 2.96 9.834 8 12.915l5.042-3.081zm-3 .661L2.959 6.166l5.04-3.081 5.042 3.08z" />
     </svg>
   );
 }
-function TextIcon() { return <span className="font-bold" style={{ fontSize: "var(--sidebar-font-size)" }}>T</span>; }
-function HashIcon() { return <span style={{ fontSize: "var(--sidebar-font-size)" }}>#</span>; }
-function ComponentIcon() { return <span style={{ fontSize: "var(--sidebar-font-size)" }}>◇</span>; }
-function InstanceIcon() { return <span className="opacity-70" style={{ fontSize: "var(--sidebar-font-size)" }}>◇</span>; }
-function ImageIcon() { return <span style={{ fontSize: "var(--sidebar-font-size)" }}>▢</span>; }
-function ShapeIcon() { return <span style={{ fontSize: "var(--sidebar-font-size)" }}>△</span>; }
-function OtherIcon() { return <span style={{ fontSize: "var(--sidebar-font-size)" }}>⋯</span>; }
+function CheckboxIcon() {
+  return (
+    <svg {...filterIconSvgProps} viewBox="0 0 16 16">
+      <path fill="currentColor" d="M11.584 3.723a.5.5 0 0 1 .832.554l-5 7.5a.502.502 0 0 1-.77.077l-3-3a.5.5 0 0 1 .708-.708l2.568 2.569z" />
+    </svg>
+  );
+}
+function TextIcon() {
+  return (
+    <svg {...filterIconSvgProps} viewBox="0 0 16 16">
+      <g transform="translate(3, 3)">
+        <path fill="currentColor" fillRule="nonzero" d="M0 0h10v3H9V1H5.5v8H7v1H3V9h1.5V1H1v2H0z" />
+      </g>
+    </svg>
+  );
+}
+function HashIcon() {
+  return (
+    <svg {...filterIconSvgProps} viewBox="0 0 16 16">
+      <g transform="translate(2, 2)">
+        <path fill="currentColor" fillRule="evenodd" d="M4 .5V3h4V.5h1V3h2.5v1H9v4h2.5v1H9v2.5H8V9H4v2.5H3V9H.5V8H3V4H.5V3H3V.5zM8 8V4H4v4z" />
+      </g>
+    </svg>
+  );
+}
+function ComponentIcon() {
+  return (
+    <svg {...filterIconSvgProps} viewBox="0 0 12 12">
+      <path fill="currentColor" fillRule="nonzero" d="M3.743 2.748 6 .5l2.257 2.248L6 4.996zm-.995 5.51L.5 6l2.248-2.257L4.996 6zm5.51.994L6 11.5 3.743 9.252 6 7.004zM11.5 6 9.252 3.743 7.004 6l2.248 2.257z" />
+    </svg>
+  );
+}
+function InstanceIcon() {
+  return (
+    <svg {...filterIconSvgProps} viewBox="0 0 14 14">
+      <path fill="currentColor" fillRule="evenodd" d="M.828 7 7 .828 13.172 7 7 13.172zM7 11.828 11.828 7 7 2.172 2.172 7z" />
+    </svg>
+  );
+}
+function ImageIcon() {
+  return (
+    <svg {...filterIconSvgProps} viewBox="0 0 16 16">
+      <path fill="currentColor" fillRule="evenodd" d="M12 6c0 1.105-.895 2-2 2-1.105 0-2-.895-2-2 0-1.105.895-2 2-2 1.105 0 2 .895 2 2m-1 0c0 .552-.448 1-1 1-.552 0-1-.448-1-1 0-.552.448-1 1-1 .552 0 1 .448 1 1M3 2c-.552 0-1 .448-1 1v10c0 .552.448 1 1 1h10c.552 0 1-.448 1-1V3c0-.552-.448-1-1-1zm10 1H3v6.293l2.5-2.5L11.707 13H13zM3 13v-2.293l2.5-2.5L10.293 13z" />
+    </svg>
+  );
+}
+function ShapeIcon() {
+  return (
+    <svg {...filterIconSvgProps} viewBox="0 0 16 16">
+      <path fill="currentColor" fillRule="evenodd" d="M8 3 2.5 13h11zm0 2.075L4.191 12h7.618z" />
+    </svg>
+  );
+}
+function OtherIcon() {
+  return (
+    <svg {...filterIconSvgProps} viewBox="0 0 16 16">
+      <path fill="currentColor" fillRule="nonzero" d="M12 8c0-.552.448-1 1-1 .552 0 1 .448 1 1 0 .552-.448 1-1 1-.552 0-1-.448-1-1M7 8c0-.552.448-1 1-1 .552 0 1 .448 1 1 0 .552-.448 1-1 1-.552 0-1-.448-1-1M2 8c0-.552.448-1 1-1 .552 0 1 .448 1 1 0 .552-.448 1-1 1-.552 0-1-.448-1-1" />
+    </svg>
+  );
+}

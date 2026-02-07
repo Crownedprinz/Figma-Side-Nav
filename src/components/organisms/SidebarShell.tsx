@@ -7,7 +7,7 @@ import { PageList } from "./PageList";
 import { SidebarHeader } from "./SidebarHeader";
 
 const SIDEBAR_WIDTH_MIN = 180;
-const SIDEBAR_WIDTH_MAX = 640;
+const SIDEBAR_WIDTH_MAX = 500;
 const SIDEBAR_WIDTH_DEFAULT = 240;
 
 export function SidebarShell({
