@@ -1,0 +1,41 @@
+/**
+ * Design tokens for Figma-like sidebar replication.
+ * Single source of truth for colors, spacing, and sidebar dimensions.
+ * Light/dark themes follow system preference (prefers-color-scheme).
+ */
+:root {
+  /* Sidebar */
+  --sidebar-width: 240px;
+  --sidebar-padding-x: 12px;
+  --sidebar-padding-y: 8px;
+}
+
+/* Dark theme (default) */
+:root {
+  --sidebar-bg: #2d2d2d;
+  --bg-hover: rgba(255, 255, 255, 0.06);
+  --bg-selected: rgba(255, 255, 255, 0.1);
+  --bg-canvas: #1e1e1e;
+  --text-primary: #ffffff;
+  --text-muted: #b3b3b3;
+  --text-secondary: #8c8c8c;
+  --divider: #3d3d3d;
+  --icon-button-hover: rgba(255, 255, 255, 0.08);
+  --icon-button-active: rgba(255, 255, 255, 0.12);
+}
+
+/* Light theme — follows system preference */
+@media (prefers-color-scheme: light) {
+  :root {
+    --sidebar-bg: #ffffff;
+    --bg-hover: rgba(0, 0, 0, 0.04);
+    --bg-selected: rgba(0, 0, 0, 0.08);
+    --bg-canvas: #ffffff;
+    --text-primary: #1a1a1a;
+    --text-muted: #6b6b6b;
+    --text-secondary: #737373;
+    --divider: #d4d4d4;
+    --icon-button-hover: rgba(0, 0, 0, 0.06);
+    --icon-button-active: rgba(0, 0, 0, 0.1);
+  }
+}

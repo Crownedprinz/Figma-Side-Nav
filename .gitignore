@@ -1,0 +1,28 @@
+# Dependencies
+node_modules
+.pnp
+.pnp.js
+
+# Build / output
+.next
+out
+build
+dist
+
+# Env and debug
+.env
+.env*.local
+*.log
+npm-debug.log*
+
+# IDE / OS
+.DS_Store
+*.swp
+.idea
+.vscode
+
+# Assessment / reference (excluded from repo)
+Assessment.md
+Instructions.md
+element.html
+element-collapse.html

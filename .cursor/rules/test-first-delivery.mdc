@@ -1,0 +1,29 @@
+---
+description: Deliver code with unit and integration tests; run tests before asking for visual testing
+alwaysApply: true
+---
+
+# Test-First Delivery
+
+When implementing features or changes:
+
+1. **Deliver in this order**
+   - Implementation (components, hooks, utils, API routes, etc.)
+   - Unit tests for the new/updated code
+   - Integration tests that cover the flow or feature
+
+2. **Where tests live**
+   - Unit tests: next to the module (e.g. `Component.tsx` → `Component.test.tsx`) or in a `__tests__` / `*.test.ts(x)` structure the project already uses.
+   - Integration tests: in a dedicated integration test suite (e.g. `tests/integration/`, `e2e/`, or `*.integration.test.ts(x)`).
+
+3. **Before suggesting visual or manual testing**
+   - Run the test suite: `npm test` or `pnpm test` (and `npm run test:integration` / equivalent if separate).
+   - Fix any failing tests.
+   - Only after tests pass, say something like: “Unit and integration tests pass. You can now verify visually in the browser if you’d like.”
+
+4. **If the project has no test setup yet**
+   - Add a test runner (e.g. Jest + React Testing Library for Next.js).
+   - Add an integration option (e.g. Playwright or Cypress) if the project expects E2E/integration tests.
+   - Then follow steps 1–3 for new work.
+
+Do not ask the user to “test visually” or “check in the browser” until automated tests have been run and are passing.
