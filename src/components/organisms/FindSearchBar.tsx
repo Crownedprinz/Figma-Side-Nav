@@ -1,15 +1,11 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import { forwardRef, useEffect, useRef, useState, type ReactNode, type Ref, type RefObject } from "react";
 import { createPortal } from "react-dom";
 
 const MENU_BG = "#1e1e1e";
 const MENU_HOVER = "rgba(255, 255, 255, 0.08)";
 
-/**
- * Canvas search bar: [search icon] [input Find…] [Settings] [Close].
- * Settings opens filter dropdown: All, Text, Frame/Group, etc. + Match case, Whole words.
- */
 export function FindSearchBar({ onClose }: { onClose: () => void }) {
   const [filterMenuOpen, setFilterMenuOpen] = useState(false);
   const settingsButtonRef = useRef<HTMLButtonElement>(null);
@@ -59,8 +55,8 @@ export function FindSearchBar({ onClose }: { onClose: () => void }) {
         <input
           type="text"
           placeholder="Find…"
-          className="min-w-0 flex-1 bg-transparent text-sm outline-none placeholder:opacity-70"
-          style={{ color: "var(--text-primary)" }}
+          className="min-w-0 flex-1 bg-transparent outline-none placeholder:opacity-70"
+          style={{ color: "var(--text-primary)", fontSize: "var(--sidebar-font-size-input)" }}
           aria-label="Find"
           autoFocus
         />
@@ -104,45 +100,28 @@ export function FindSearchBar({ onClose }: { onClose: () => void }) {
 function SearchIcon() {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
-      <path
-        fill="currentColor"
-        d="M11.5 6a5.5 5.5 0 0 1 4.226 9.019l2.127 2.127a.5.5 0 1 1-.707.707l-2.127-2.127A5.5 5.5 0 1 1 11.5 6m0 1a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9"
-      />
+      <path fill="currentColor" d="M11.5 6a5.5 5.5 0 0 1 4.226 9.019l2.127 2.127a.5.5 0 1 1-.707.707l-2.127-2.127A5.5 5.5 0 1 1 11.5 6m0 1a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9" />
     </svg>
   );
 }
-
 function SettingsIcon() {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
-      <path
-        fill="currentColor"
-        d="M8.5 18a.5.5 0 0 0 .5-.5v-1.55a2.5 2.5 0 0 0 0-4.9V6.5a.5.5 0 0 0-1 0v4.55a2.501 2.501 0 0 0 0 4.9v1.55a.5.5 0 0 0 .5.5m7 0a.5.5 0 0 0 .5-.5v-4.55a2.501 2.501 0 0 0 0-4.9V6.5a.5.5 0 0 0-1 0v1.55a2.5 2.5 0 0 0 0 4.9v4.55a.5.5 0 0 0 .5.5m0-6a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m-7 3a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"
-      />
+      <path fill="currentColor" d="M8.5 18a.5.5 0 0 0 .5-.5v-1.55a2.5 2.5 0 0 0 0-4.9V6.5a.5.5 0 0 0-1 0v4.55a2.501 2.501 0 0 0 0 4.9v1.55a.5.5 0 0 0 .5.5m7 0a.5.5 0 0 0 .5-.5v-4.55a2.501 2.501 0 0 0 0-4.9V6.5a.5.5 0 0 0-1 0v1.55a2.5 2.5 0 0 0 0 4.9v4.55a.5.5 0 0 0 .5.5m0-6a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m-7 3a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3" />
     </svg>
   );
 }
-
 function CloseIcon() {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
-      <path
-        fill="currentColor"
-        fillRule="evenodd"
-        d="M7.146 7.146a.5.5 0 0 1 .708 0L12 11.293l4.146-4.147a.5.5 0 0 1 .708.708L12.707 12l4.147 4.146a.5.5 0 0 1-.708.708L12 12.707l-4.146 4.147a.5.5 0 0 1-.708-.708L11.293 12 7.146 7.854a.5.5 0 0 1 0-.708"
-        clipRule="evenodd"
-      />
+      <path fill="currentColor" fillRule="evenodd" d="M7.146 7.146a.5.5 0 0 1 .708 0L12 11.293l4.146-4.147a.5.5 0 0 1 .708.708L12.707 12l4.147 4.146a.5.5 0 0 1-.708.708L12 12.707l-4.146 4.147a.5.5 0 0 1-.708-.708L11.293 12 7.146 7.854a.5.5 0 0 1 0-.708" clipRule="evenodd" />
     </svg>
   );
 }
 
-/** Filter dropdown: portaled so it overlays the canvas; positioned just below the filter icon. */
-const SearchFilterMenu = React.forwardRef(function SearchFilterMenu(
-  {
-    onClose,
-    anchorRef,
-  }: { onClose: () => void; anchorRef: React.RefObject<HTMLButtonElement | null> },
-  ref: React.Ref<HTMLDivElement>
+const SearchFilterMenu = forwardRef(function SearchFilterMenu(
+  { onClose, anchorRef }: { onClose: () => void; anchorRef: RefObject<HTMLButtonElement | null> },
+  ref: Ref<HTMLDivElement>
 ) {
   const [selectedFilter, setSelectedFilter] = useState("all");
   const [matchCase, setMatchCase] = useState(false);
@@ -156,7 +135,7 @@ const SearchFilterMenu = React.forwardRef(function SearchFilterMenu(
     setPosition({ top: rect.bottom + 2, left: rect.left });
   }, [anchorRef]);
 
-  const filters: { id: string; label: string; icon: React.ReactNode }[] = [
+  const filters: { id: string; label: string; icon: ReactNode }[] = [
     { id: "all", label: "All", icon: <CheckboxIcon checked={false} /> },
     { id: "text", label: "Text", icon: <TextIcon /> },
     { id: "frame", label: "Frame / Group", icon: <HashIcon /> },
@@ -173,25 +152,18 @@ const SearchFilterMenu = React.forwardRef(function SearchFilterMenu(
       role="menu"
       aria-label="Search filter"
       className="min-w-[200px] rounded-lg py-1 shadow-lg"
-      style={{
-        position: "fixed",
-        top: position.top,
-        left: position.left,
-        zIndex: 9999,
-        backgroundColor: MENU_BG,
-        color: "#fff",
-      }}
+      style={{ position: "fixed", top: position.top, left: position.left, zIndex: 9999, backgroundColor: MENU_BG, color: "#fff" }}
     >
       {filters.map((f) => (
         <button
           key={f.id}
           type="button"
           role="menuitem"
-          className="flex w-full items-center gap-2 px-3 py-2 text-left text-sm transition-colors"
-          style={{ backgroundColor: "transparent" }}
+          className="flex w-full items-center gap-2 px-3 py-2 text-left transition-colors"
+          style={{ backgroundColor: "transparent", fontSize: "var(--sidebar-font-size)" }}
           onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = MENU_HOVER)}
           onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "transparent")}
-          onClick={() => { setSelectedFilter(f.id); }}
+          onClick={() => setSelectedFilter(f.id)}
         >
           <span className="flex h-4 w-4 shrink-0 items-center justify-center" style={{ color: "var(--text-primary)" }}>
             {selectedFilter === f.id ? <CheckboxIcon checked /> : f.icon}
@@ -204,11 +176,11 @@ const SearchFilterMenu = React.forwardRef(function SearchFilterMenu(
         type="button"
         role="menuitemcheckbox"
         aria-checked={matchCase}
-        className="flex w-full items-center gap-2 px-3 py-2 text-left text-sm transition-colors"
-        style={{ backgroundColor: "transparent" }}
+        className="flex w-full items-center gap-2 px-3 py-2 text-left transition-colors"
+        style={{ backgroundColor: "transparent", fontSize: "var(--sidebar-font-size)" }}
         onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = MENU_HOVER)}
         onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "transparent")}
-        onClick={() => { setMatchCase((c) => !c); }}
+        onClick={() => setMatchCase((c) => !c)}
       >
         <span className="w-4 shrink-0">{matchCase ? "✓" : ""}</span>
         <span>Match case</span>
@@ -217,11 +189,11 @@ const SearchFilterMenu = React.forwardRef(function SearchFilterMenu(
         type="button"
         role="menuitemcheckbox"
         aria-checked={wholeWords}
-        className="flex w-full items-center gap-2 px-3 py-2 text-left text-sm transition-colors"
-        style={{ backgroundColor: "transparent" }}
+        className="flex w-full items-center gap-2 px-3 py-2 text-left transition-colors"
+        style={{ backgroundColor: "transparent", fontSize: "var(--sidebar-font-size)" }}
         onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = MENU_HOVER)}
         onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "transparent")}
-        onClick={() => { setWholeWords((w) => !w); }}
+        onClick={() => setWholeWords((w) => !w)}
       >
         <span className="w-4 shrink-0">{wholeWords ? "✓" : ""}</span>
         <span>Whole words</span>
@@ -234,30 +206,14 @@ function CheckboxIcon({ checked = false }: { checked?: boolean }) {
   return (
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
       <rect x="2" y="2" width="12" height="12" rx="2" stroke="currentColor" strokeWidth="1.5" fill="none" />
-      {checked && (
-        <path d="M4 8.5L6.5 11L12 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-      )}
+      {checked && <path d="M4 8.5L6.5 11L12 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />}
     </svg>
   );
 }
-function TextIcon() {
-  return <span className="text-sm font-bold">T</span>;
-}
-function HashIcon() {
-  return <span className="text-sm">#</span>;
-}
-function ComponentIcon() {
-  return <span className="text-sm">◇</span>;
-}
-function InstanceIcon() {
-  return <span className="text-sm opacity-70">◇</span>;
-}
-function ImageIcon() {
-  return <span className="text-sm">▢</span>;
-}
-function ShapeIcon() {
-  return <span className="text-sm">△</span>;
-}
-function OtherIcon() {
-  return <span className="text-sm">⋯</span>;
-}
+function TextIcon() { return <span className="font-bold" style={{ fontSize: "var(--sidebar-font-size)" }}>T</span>; }
+function HashIcon() { return <span style={{ fontSize: "var(--sidebar-font-size)" }}>#</span>; }
+function ComponentIcon() { return <span style={{ fontSize: "var(--sidebar-font-size)" }}>◇</span>; }
+function InstanceIcon() { return <span className="opacity-70" style={{ fontSize: "var(--sidebar-font-size)" }}>◇</span>; }
+function ImageIcon() { return <span style={{ fontSize: "var(--sidebar-font-size)" }}>▢</span>; }
+function ShapeIcon() { return <span style={{ fontSize: "var(--sidebar-font-size)" }}>△</span>; }
+function OtherIcon() { return <span style={{ fontSize: "var(--sidebar-font-size)" }}>⋯</span>; }

@@ -7,14 +7,9 @@ import { PageList } from "./PageList";
 import { SidebarHeader } from "./SidebarHeader";
 
 const SIDEBAR_WIDTH_MIN = 180;
-const SIDEBAR_WIDTH_MAX = 420;
+const SIDEBAR_WIDTH_MAX = 640;
 const SIDEBAR_WIDTH_DEFAULT = 240;
 
-/**
- * Left panel: full (header + Pages + Layers) or collapsed (rounded pill).
- * pagesExpanded: when false, Pages list is hidden and canvas shows overview.
- * Right edge is draggable to resize the sidebar (expand/retract).
- */
 export function SidebarShell({
   pagesExpanded = true,
   onPagesExpandedChange,
@@ -55,12 +50,7 @@ export function SidebarShell({
 
   if (collapsed) {
     return (
-      <div
-        role="complementary"
-        aria-label="Sidebar"
-        className="fixed left-4 top-4 z-50"
-        style={{ maxWidth: 500 }}
-      >
+      <div role="complementary" aria-label="Sidebar" className="fixed left-4 top-4 z-50" style={{ maxWidth: 500 }}>
         <CollapsedSidebarBar onExpand={() => setCollapsed(false)} />
       </div>
     );
@@ -68,23 +58,17 @@ export function SidebarShell({
 
   return (
     <aside
-      className="relative flex h-full flex-col border-r border-[var(--divider)]"
-      style={{
-        width: sidebarWidth,
-        minWidth: sidebarWidth,
-        backgroundColor: "var(--sidebar-bg)",
-      }}
+      className="relative flex min-h-screen flex-col border-r border-[var(--divider)]"
+      style={{ width: sidebarWidth, minWidth: sidebarWidth, height: "100%", backgroundColor: "var(--sidebar-bg)" }}
       aria-label="Sidebar"
     >
       <SidebarHeader onCollapse={() => setCollapsed(true)} />
-      <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
-        <PageList
-          pagesExpanded={pagesExpanded}
-          onPagesExpandedChange={onPagesExpandedChange}
-        />
+      <div className="flex min-h-0 shrink-0 flex-col overflow-hidden" style={{ maxHeight: "40vh" }}>
+        <PageList pagesExpanded={pagesExpanded} onPagesExpandedChange={onPagesExpandedChange} />
       </div>
-      <LayersSection />
-      {/* Resize handle: drag right edge to expand/retract */}
+      <div className="flex min-h-0 flex-1 flex-col">
+        <LayersSection />
+      </div>
       <div
         data-sidebar-resize-handle
         role="separator"

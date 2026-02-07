@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { SidebarShell } from "../SidebarShell";
+import { SidebarShell } from "@/components";
 
 describe("SidebarShell", () => {
   it("renders sidebar with correct aria label", () => {

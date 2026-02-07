@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type RefObject } from "react";
 
 const MENU_BG = "#1e1e1e";
 const MENU_HOVER = "rgba(255, 255, 255, 0.08)";
@@ -30,23 +30,15 @@ export function FileMenuDropdown({
 }: {
   open: boolean;
   onClose: () => void;
-  anchorRef: React.RefObject<HTMLButtonElement | null>;
+  anchorRef: RefObject<HTMLButtonElement | null>;
 }) {
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!open) return;
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
+    const handleEscape = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
     const handleClickOutside = (e: MouseEvent) => {
-      const anchor = anchorRef.current;
-      const menu = menuRef.current;
-      if (
-        anchor?.contains(e.target as Node) ||
-        menu?.contains(e.target as Node)
-      )
-        return;
+      if (anchorRef.current?.contains(e.target as Node) || menuRef.current?.contains(e.target as Node)) return;
       onClose();
     };
     window.addEventListener("keydown", handleEscape);
@@ -65,50 +57,25 @@ export function FileMenuDropdown({
       role="menu"
       aria-label="Edit file menu"
       className="z-50 min-w-[220px] rounded-lg py-1 shadow-lg"
-      style={{
-        position: "absolute",
-        top: "100%",
-        left: 0,
-        marginTop: 4,
-        backgroundColor: MENU_BG,
-        color: MENU_TEXT,
-      }}
+      style={{ position: "absolute", top: "100%", left: 0, marginTop: 4, backgroundColor: MENU_BG, color: MENU_TEXT }}
     >
       {ITEMS.map((item, i) => {
         if (item.type === "separator") {
-          return (
-            <div
-              key={`sep-${i}`}
-              className="my-1 h-px w-full shrink-0"
-              style={{ backgroundColor: "rgba(255,255,255,0.12)" }}
-              role="separator"
-            />
-          );
+          return <div key={`sep-${i}`} className="my-1 h-px w-full shrink-0" style={{ backgroundColor: "rgba(255,255,255,0.12)" }} role="separator" />;
         }
         return (
           <button
             key={`${item.label}-${i}`}
             type="button"
             role="menuitem"
-            className="flex w-full items-center justify-between gap-2 px-3 py-2 text-left text-sm transition-colors"
-            style={{
-              color: item.muted ? MENU_DISABLED : MENU_TEXT,
-              backgroundColor: "transparent",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = MENU_HOVER;
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = "transparent";
-            }}
+            className="flex w-full items-center justify-between gap-2 px-3 py-2 text-left transition-colors"
+            style={{ fontSize: "var(--sidebar-font-size)", color: item.muted ? MENU_DISABLED : MENU_TEXT, backgroundColor: "transparent" }}
+            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = MENU_HOVER)}
+            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "transparent")}
             onClick={() => onClose()}
           >
             <span className="min-w-0 flex-1">{item.label}</span>
-            {item.shortcut && (
-              <span className="shrink-0 text-xs" style={{ color: MENU_MUTED }}>
-                {item.shortcut}
-              </span>
-            )}
+            {item.shortcut && <span className="shrink-0" style={{ color: MENU_MUTED, fontSize: "var(--sidebar-font-size)" }}>{item.shortcut}</span>}
           </button>
         );
       })}

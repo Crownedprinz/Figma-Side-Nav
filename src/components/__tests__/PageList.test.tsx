@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { PageList } from "../PageList";
+import { PageList } from "@/components";
 
 describe("PageList", () => {
   it("renders Pages section with search", () => {

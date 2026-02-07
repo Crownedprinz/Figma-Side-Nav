@@ -8,6 +8,9 @@
   --sidebar-width: 240px;
   --sidebar-padding-x: 12px;
   --sidebar-padding-y: 8px;
+  /* Figma layers panel uses ~11px for list/section text */
+  --sidebar-font-size: 11px;
+  --sidebar-font-size-input: 12px;
 }
 
 /* Dark theme (default) */

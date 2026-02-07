@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { SectionHeader, SearchButton } from "../SectionHeader";
+import { SectionHeader, SearchButton } from "@/components";
 
 describe("SectionHeader", () => {
   it("renders section title", () => {
