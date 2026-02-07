@@ -1,6 +1,6 @@
 "use client";
 
-import { SidebarShell } from "@/components/SidebarShell";
+import { SidebarShell } from "@/components";
 import { useState } from "react";
 
 export default function Home() {

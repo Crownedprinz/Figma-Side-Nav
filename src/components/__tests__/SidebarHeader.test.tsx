@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { SidebarHeader } from "../SidebarHeader";
+import { SidebarHeader } from "@/components";
 
 describe("SidebarHeader", () => {
   it("renders project name Antital", () => {
